@@ -14,14 +14,14 @@ import edu.handong.csee.Utils.*;
 
 public class JavaFinalProject {
 	
-	private SaeamDataStructure<HashMap<String,ArrayList<ArrayList<String>>>> data = new SaeamDataStructure<HashMap<String,ArrayList<ArrayList<String>>>>();
-	private SaeamDataStructure<HashMap<String,ArrayList<ArrayList<String>>>> data2 = new SaeamDataStructure<HashMap<String,ArrayList<ArrayList<String>>>>();
-	public void setData(SaeamDataStructure<HashMap<String, ArrayList<ArrayList<String>>>> data) {
+	private HashMap<String,ArrayList<ArrayList<String>>> data = new HashMap<String,ArrayList<ArrayList<String>>>();
+	private HashMap<String,ArrayList<ArrayList<String>>> data2 = new HashMap<String,ArrayList<ArrayList<String>>>();
+	public void setData(HashMap<String, ArrayList<ArrayList<String>>> data) {
 		this.data = data;
 	}
 
-	public void setData2(SaeamDataStructure<HashMap<String, ArrayList<ArrayList<String>>>> data2) {
-		this.data2 = data2;
+	public void setData2(HashMap<String, ArrayList<ArrayList<String>>> data2) {
+		this.data2 = data;
 	}
 
 	private String dataPath; // Zip file path
@@ -41,8 +41,11 @@ public class JavaFinalProject {
 		rp[1] = resultPath.split(".csv")[0] + "2.csv";
 		//input output을 cli를 통해 입력받음
 		Utils util = new Utils();
-		
-		util.getData(dataPath,data,data2);
+		try {
+			util.getData(dataPath,data,data2);
+		}catch(Exceptions e) {
+			
+		}
 		util.writeCSV(rp[1], 1, data);
 		util.writeCSV(rp[0], 0, data2);
 	}

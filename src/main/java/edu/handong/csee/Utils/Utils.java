@@ -13,27 +13,31 @@ import edu.handong.csee.reader.ZipReader;
 
 public class Utils {
 	
-	public void getData(String dataPath,SaeamDataStructure<HashMap<String,ArrayList<ArrayList<String>>>> data, SaeamDataStructure<HashMap<String,ArrayList<ArrayList<String>>>> data2 ) {
+	public void getData(String dataPath,HashMap<String,ArrayList<ArrayList<String>>> data, HashMap<String,ArrayList<ArrayList<String>>> data2 ) throws Exceptions {
 
 		ZipReader zip = new ZipReader();
 		File dir = new File(dataPath);
 		File[] fileList = dir.listFiles(); 
 		
 		for(File file : fileList){
-			if(file.isFile()){
+			if(file.isFile() && (file.getName().endsWith(".zip"))){
 				ArrayList<ArrayList<String>> contents[] = new ArrayList[2];
+				contents[0] = new ArrayList<ArrayList<String>>();
+				contents[1] = new ArrayList<ArrayList<String>>();
 				String path = file.getPath();
 				String name = file.getName().split(".z")[0];
 				contents = zip.readFileInZip(path);
+				if(contents == null) 
+					throw new Exceptions(name);
 				
-				data.getdata().put(name,contents[0]);
-				data2.getdata().put(name,contents[1]);
+				data.put(name,contents[0]);
+				data2.put(name,contents[1]);
 			}
 		}
 
 	}
 	
-	public void writeCSV(String resultPath, int option, SaeamDataStructure<HashMap<String,ArrayList<ArrayList<String>>>> data) throws InterruptedException {
+	public void writeCSV(String resultPath, int option, HashMap<String,ArrayList<ArrayList<String>>> data) throws InterruptedException {
 		try {
 			File file = new File(resultPath);
 			BufferedWriter bf = new BufferedWriter(new FileWriter(file));
@@ -43,7 +47,7 @@ public class Utils {
 				bf.write("제목,요약문 (300자 내외),핵심어 , 조회날짜, 실제자료조회 출처 (웹자료링크), 원출처(기관명 등),제작자 Copyright 소유처)");
 			bf.newLine();
 			
-			Iterator<String> keys = data.getdata().keySet().iterator();
+			Iterator<String> keys = data.keySet().iterator();
 
 			ArrayList<writerThread> threads = new ArrayList<writerThread>();
 			while(keys.hasNext()){

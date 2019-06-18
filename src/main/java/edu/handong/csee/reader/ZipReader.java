@@ -10,18 +10,6 @@ import org.apache.commons.compress.archivers.zip.ZipFile;
 
 public class ZipReader {
 
-	public static void main(String[] args) {
-		ZipReader zipReader = new ZipReader();
-		zipReader.run(args);
-	}
-
-	private void run(String[] args) {
-		//String path = args[0];
-		
-		readFileInZip("0001.zip");
-		
-	}
-
 	public ArrayList<ArrayList<String>>[] readFileInZip(String path) {
 		ArrayList<ArrayList<String>> contents[] = new ArrayList[2];
 		for(int i = 0;i < 2;i ++) {
