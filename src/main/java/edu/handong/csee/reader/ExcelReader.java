@@ -38,7 +38,7 @@ public class ExcelReader {
 		        	    } catch(IllegalStateException e) {
 		        	        str = Integer.toString((int)cell.getNumericCellValue());            
 		        	    }
-		        		System.out.println(str);
+		        		//System.out.println(str);
 		        		value.add(str);
 		        	}
 	                values.add(value);
